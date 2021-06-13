@@ -18,6 +18,9 @@
 			<!-- /.panel-heading -->
 			<div class="panel-body">
 				<form role="form" action="/board/modify" method="post">
+					<!-- 넘겨줄 값들 추가(목록 돌아갈 때) -->
+					<input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum }"/>'>
+					<input type='hidden' name='amount' value='<c:out value="${cri.amount }"/>'>
 					<div class="form-group">
 						<label>Bno</label><input class="form-control" name='bno'
 						value='<c:out value="${board.bno }"/>' readonly="readonly">
@@ -78,7 +81,14 @@
 				
 				// 또 다른 방법
 				formObj.attr("action", "/board/list").attr("method", "get");
-				formObj.empty(); // submit 전에 button까지 지워버려서 submit이 안된다.
+				var pageNumTag = $("input[name='pageNum']").clone();
+				var amountTag = $("input[name='amount']").clone();			
+				
+				formObj.empty(); // list로 갈 때 form 내용은 필요없으므로 지워준다. 
+				// 주의. submit 전에 button까지 지워버려서 submit이 안된다.
+				// 그래서 operation이 list인 경우에도 formObj.submit()이 필요하다.	
+				formObj.append(pageNumTag);
+				formObj.append(amountTag);
 			}
 			formObj.submit();
 		});

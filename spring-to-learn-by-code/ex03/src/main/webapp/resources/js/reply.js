@@ -108,7 +108,7 @@ var replyService = (function() {
 	};
 	
 	return {
-	//  이름 : 값 
+	//  이름 : 값(함수 전체, 각각의 함수는 undefined를 리턴한다)	
 		add : add,
 		getList : getList,
 		remove : remove,
